@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Tags.css';
 import Chip from 'material-ui/Chip';
 import { withStyles } from 'material-ui/styles';
 
@@ -22,16 +21,15 @@ const styles = (theme)=>({
 class Tags extends Component {
 
     render() {
-        let {tags, selected, onClick,classes} = this.props;
-        selected = selected||{};
+        let {tags,selected,onClick,classes} = this.props;
+        tags=tags||[];
         return <div className={classes.tags}>
-            {(tags || []).map(tag=>(
-                <Chip
-                    className={classes.chip+' '+(selected[tag.en]?'selected':'')}
+            {tags.map(tag=>(
+                    <Chip className={classes.chip+' '+(selected[tag.en]?'selected':'')}
                     label={tag.pl || tag.en}
                     onClick={()=>onClick(tag.en)}
                     key={tag.en}/>
-            ))}
+                ))}
         </div>
     }
 

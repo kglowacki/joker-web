@@ -18,7 +18,7 @@ const styles = theme => ({
         paddingLeft:'20px'
     },
     paper : {
-        width:'40vw'
+        width:'260px'
         //background:"rgba(0,0,0,0.2)"
     },
     flexGrow:{flex:'1 1 auto'}

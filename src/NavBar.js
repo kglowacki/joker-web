@@ -26,7 +26,7 @@ class NavBar extends Component {
     render() {
         const {onDrawerToggleClick, onInfoClick,classes} = this.props;
         return (
-            <AppBar position="absolute">
+            <AppBar position="fixed">
                 <Toolbar>
                     <div className={classes.appBarIcon}></div>
                     <Typography type="title" color="inherit" className={classes.title}>
