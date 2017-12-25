@@ -6,6 +6,10 @@ require("firebase/auth");
 require("firebase/database");
 require("firebase/firestore");
 
+const defaultFilter = ()=>({
+    tags : {},
+    lang : 'pl'
+});
 
 class JokerService {
 
@@ -14,10 +18,7 @@ class JokerService {
     /*
      * because filter is persisted in account, it makes sense to keep it here, rather than route auth=>App=>filter=>here?
      */
-    filter = new Rx.BehaviorSubject({
-        tags : {},
-        lang : 'pl'
-    });
+    filter = new Rx.BehaviorSubject(defaultFilter());
 
     jokes = new Rx.BehaviorSubject([]);
 
@@ -33,11 +34,17 @@ class JokerService {
         });
 
         firebase.auth().onAuthStateChanged(user => {
+            console.log("onAuthStateChanged", user ? user.uid : 'logged out');
             this.user.onNext(user);
             if (user) {
-                this.db.collection('users').doc(user.uid).get().then((u) => {
-                    console.log("I can read /users/"+user.uid, u);
-                    //TODO update filter...
+                this.db.collection('users').doc(user.uid).get().then((doc) => {
+                    if (doc.exists) {
+                        console.log("read existing profile", doc.data());
+                        this.updateFilter(()=>(Object.assign(defaultFilter(), doc.data().filter)), true);
+                    } else {
+                        console.log('save new user profile');
+                        this.updateUserProfile();
+                    }
                 });
             }
         });
@@ -50,8 +57,15 @@ class JokerService {
         this.loadTags();
     }
 
-    updateFilter(updater) {
+    updateUserProfile() {
+        if (this.user.value) {
+            this.db.collection('users').doc(this.user.value.uid).set({"filter":this.filter.value});
+        }
+    }
+
+    updateFilter(updater, skipSave) {
         this.filter.onNext(updater(this.filter.value));
+        if (!skipSave) this.updateUserProfile();
         this.loadJokes();
     }
 

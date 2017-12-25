@@ -9,11 +9,17 @@ const styles = (theme)=>({
         padding:'1em'
     },
     chip:{
-        backgroundColor:'#eee',
+        backgroundColor:'#fff',
         margin: '0.25em',
         '&.selected' : {
-                backgroundColor:'#aaa'
-
+            backgroundColor:theme.palette.secondary['400'],
+            color:'#fff'
+        },
+        '&:hover' : {
+            backgroundColor:theme.palette.secondary['100']
+        },
+        '&:focus' : {
+            backgroundColor:theme.palette.secondary['100']
         }
     }
 });
@@ -21,9 +27,9 @@ const styles = (theme)=>({
 class Tags extends Component {
 
     render() {
-        let {tags,selected,onClick,classes} = this.props;
+        let {tags,selected,onClick,classes,style} = this.props;
         tags=tags||[];
-        return <div className={classes.tags}>
+        return <div style={style} className={classes.tags}>
             {tags.map(tag=>(
                     <Chip className={classes.chip+' '+(selected[tag.en]?'selected':'')}
                     label={tag.pl || tag.en}

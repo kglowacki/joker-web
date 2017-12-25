@@ -5,6 +5,9 @@ import jokerService from './joker.service';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
+import ExitToApp from 'material-ui-icons/ExitToApp';
+import Clear from 'material-ui-icons/Clear';
+import IconButton from 'material-ui/IconButton';
 import firebase from 'firebase';
 
 //const firebase = require("firebase/app");
@@ -16,8 +19,25 @@ const styles = theme => ({
     },
     authPanel: {
         padding:'1em',
-        background:'#eee',
-        minHeight:'150px'
+        background:theme.palette.primary['300'],
+        minHeight:'200px',
+        '& .light' : {
+            color:'#fff'
+        },
+        display:'flex',
+        alignItems: 'flex-end',
+        justifyContent:'center',
+
+        '& .firebaseui-card-content': {
+            padding: '0 12px'
+        }
+    },
+    userInfo: {
+        display:'flex',
+        marginTop:'10px'
+    },
+    flexGrow: {
+        flexGrow:2
     }
 });
 
@@ -61,18 +81,19 @@ class Auth extends Component {
         const {classes} = this.props;
         return <div className={classes.authPanel}>
             {!this.state.user &&
-            <div>
                 <FirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
-            </div>
             }
             {this.state.user &&
-            <div>
+            <div className={classes.flexGrow}>
                 <Avatar className={classes.avatar} src={this.state.user.photoURL}/>
-                <Typography type="title">{this.state.user.displayName}</Typography>
-                <Typography type="subheading">{this.state.user.email}</Typography>
-
-                <Button onClick={this.onLogout}>Logout</Button>
+                <div className={classes.userInfo}>
+                    <div className={classes.flexGrow}>
+                        <Typography type="title" className="light">{this.state.user.displayName}</Typography>
+                        <Typography type="subheading" className="light">{this.state.user.email}</Typography>
+                    </div>
+                    <IconButton className="light" onClick={this.onLogout}><Clear/></IconButton>
                 </div>
+            </div>
             }
         </div>
     }

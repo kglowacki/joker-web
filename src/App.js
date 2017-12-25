@@ -7,7 +7,10 @@ import NavBar from './NavBar';
 import {MuiThemeProvider,createMuiTheme} from 'material-ui/styles'
 import AppDrawer from './AppDrawer';
 import Auth from './Auth';
-import { LinearProgress } from 'material-ui/Progress';
+import { FormGroup, FormControlLabel } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
+import Divider from 'material-ui/Divider';
+
 
 const theme = createMuiTheme({
     palette: {
@@ -45,23 +48,34 @@ class App extends Component {
   }
 
   drawerContent() {
-      return <div>
-          <Auth/>
-          <Tags tags={this.state.tags} selected={this.state.filter.tags} onClick={tag=>jokerService.toggleTag(tag)}/>
-      </div>
+      return [
+          <Auth key="1"/>,
+          <Tags key="2" style={{flexGrow:3,alignContent: 'flex-start'}} tags={this.state.tags} selected={this.state.filter.tags} onClick={tag=>jokerService.toggleTag(tag)}/>,
+          <Divider key="3"/>,
+          <div key="4" style={{padding:'1em'}}>
+          <FormControlLabel
+              control={
+                  <Checkbox
+                      checked={this.state.checkedA}
+                      onChange={()=>{}}
+                      value="checkedA"
+                  />
+              }
+              label="Notify me about new jokes"
+          />
+          </div>
+      ]
   }
 
   render() {
     return (
         <MuiThemeProvider theme={theme}>
-            <NavBar onDrawerToggleClick={()=>this.toggleMenu(!this.state.drawerOpen)}/>
+            <NavBar loading={this.state.loading} onDrawerToggleClick={()=>this.toggleMenu(!this.state.drawerOpen)}/>
 
             <AppDrawer drawerOpen={this.state.drawerOpen}
                      onClose={()=>this.toggleMenu(false)}
                        content={this.drawerContent()}
             />
-            <LinearProgress style={{display:this.state.loading?'block':'none',position:'fixed',zIndex:1200,top:'55px',left:0,right:0}} color="accent"/>
-
 
             <JokeList jokes={this.state.jokes} loading={this.state.loading} onLoadMore={()=>{if (!this.state.loading) jokerService.loadMore()}}/>
         </MuiThemeProvider>
