@@ -1,9 +1,7 @@
 import React, { Component }  from 'react'
 import Drawer from 'material-ui/Drawer'
-import Divider from 'material-ui/Divider'
 import IconButton from 'material-ui/IconButton'
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft'
-import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
@@ -18,7 +16,7 @@ const styles = theme => ({
     },
     paper : {
         width:'260px',
-        background:theme.palette.primary['100']
+        background:theme.palette.primary.light
     },
     flexGrow:{flex:'1 1 auto'}
 });

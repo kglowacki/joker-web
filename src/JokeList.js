@@ -23,10 +23,6 @@ const styles = theme => ({
         justifyContent:'center',
         alignItems:'center'
     },
-    item: {
-        borderBottom:'1px solid #ccc',
-        lineHeight:'1.5em'
-    },
     loadMore : {
         height:'150px',
         justifyContent:'center'
@@ -35,17 +31,17 @@ const styles = theme => ({
 
 class JokeList extends Component {
 
+
     render() {
-        const {classes,onLoadMore,loading} = this.props;
+        const {classes,onLoadMore,loading,allowEdit,onEdit} = this.props;
         const jokes = this.props.jokes || [];
 
         if (!jokes.length && !loading) {
             return <div className={classes.noItems}>No jokes found:(</div>
         } else {
             return <List className={classes.root}>
-                {jokes.map(joke => (
-                    <ListItem button className={classes.item} key={joke.id}><Joke joke={joke}/></ListItem>))}
-                {jokes.length ? <ListItem button className={classes.loadMore} style={{opacity: loading ? 0.5 : 1}}
+                {jokes.map(joke => (<Joke key={joke.id} joke={joke} allowEdit={allowEdit} onEditClick={()=>onEdit(joke)}/>))}
+                {jokes.length ? <ListItem key="..." button className={classes.loadMore} style={{opacity: loading ? 0.5 : 1}}
                                           onClick={onLoadMore}>Load more dirty jokes!</ListItem> : ''}
             </List>
         }

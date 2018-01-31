@@ -6,20 +6,20 @@ const styles = (theme)=>({
     tags : {
         display: 'flex',
         flexWrap: 'wrap',
-        padding:'1em'
+        padding:'0em'
     },
     chip:{
-        backgroundColor:'#fff',
+        backgroundColor:'#eee',
         margin: '0.25em',
         '&.selected' : {
-            backgroundColor:theme.palette.secondary['400'],
+            backgroundColor:theme.palette.secondary.main,
             color:'#fff'
         },
         '&:hover' : {
-            backgroundColor:theme.palette.secondary['100']
+            backgroundColor:theme.palette.secondary.light
         },
         '&:focus' : {
-            backgroundColor:theme.palette.secondary['100']
+            backgroundColor:theme.palette.secondary.light
         }
     }
 });

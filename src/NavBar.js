@@ -2,11 +2,7 @@ import React, { Component }  from 'react'
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography'
-import IconButton from 'material-ui/IconButton'
-import List from 'material-ui-icons/List'
-import InfoOutline from 'material-ui-icons/InfoOutline'
-import { withStyles } from 'material-ui/styles';
-import { LinearProgress } from 'material-ui/Progress';
+import { withStyles } from 'material-ui/styles'
 
 const styles = {
     appBarIcon : {
@@ -31,10 +27,9 @@ const styles = {
 class NavBar extends Component {
 
     render() {
-        const {onDrawerToggleClick, onInfoClick,classes,loading} = this.props;
+        const {onDrawerToggleClick,classes} = this.props;
         return (
             <AppBar position="fixed" onClick={onDrawerToggleClick}>
-                <LinearProgress style={{display:loading?'block':'none'}} className={classes.progressbar} color="accent"/>
                 <Toolbar>
                     <div className={classes.appBarIcon}></div>
                     <Typography type="title" color="inherit" className={classes.title}>

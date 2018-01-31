@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^4.8.0",
+    "firebase": "^4.9.0",
     "firebaseui": "^2.5.1",
-    "material-ui": "^1.0.0-beta.23",
+    "lodash": "^4.17.4",
+    "material-ui": "^1.0.0-beta.30",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-firebaseui": "^1.0.10",
-    "react-scripts": "1.0.17",
+    "react-scripts": "^1.0.17",
     "rx-lite": "^4.0.8",
     "typeface-roboto": "0.0.45"
   },

@@ -1,16 +1,12 @@
 import React, { Component }  from 'react';
-import Button from 'material-ui/Button';
 import { FirebaseAuth } from 'react-firebaseui';
 import jokerService from './joker.service';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
-import ExitToApp from 'material-ui-icons/ExitToApp';
 import Clear from 'material-ui-icons/Clear';
 import IconButton from 'material-ui/IconButton';
 import firebase from 'firebase';
-
-//const firebase = require("firebase/app");
 
 const styles = theme => ({
     avatar : {
@@ -19,7 +15,7 @@ const styles = theme => ({
     },
     authPanel: {
         padding:'1em',
-        background:theme.palette.primary['300'],
+        background:theme.palette.primary.dark,
         minHeight:'200px',
         '& .light' : {
             color:'#fff'
@@ -74,22 +70,22 @@ class Auth extends Component {
     }
 
     onLogout() {
-        firebase.auth().signOut();
+        jokerService.signOut();
     }
 
     render() {
         const {classes} = this.props;
         return <div className={classes.authPanel}>
-            {!this.state.user &&
+            {!this.state.user.auth &&
                 <FirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
             }
-            {this.state.user &&
+            {this.state.user.auth &&
             <div className={classes.flexGrow}>
-                <Avatar className={classes.avatar} src={this.state.user.photoURL}/>
+                <Avatar className={classes.avatar} src={this.state.user.auth.photoURL}/>
                 <div className={classes.userInfo}>
                     <div className={classes.flexGrow}>
-                        <Typography type="title" className="light">{this.state.user.displayName}</Typography>
-                        <Typography type="subheading" className="light">{this.state.user.email}</Typography>
+                        <Typography type="title" className="light">{this.state.user.auth.displayName}</Typography>
+                        <Typography type="subheading" className="light">{this.state.user.auth.email}</Typography>
                     </div>
                     <IconButton className="light" onClick={this.onLogout}><Clear/></IconButton>
                 </div>
